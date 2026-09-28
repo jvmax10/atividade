@@ -1,0 +1,47 @@
+@startuml
+interface DocumentoFiscal
+interface Pagamento
+interface EtiquetaEnvio
+interface FabricaCheckout {
+ +criarDocumentoFiscal() : DocumentoFiscal
+ +criarPagamento() : Pagamento
+ +criarEtiqueta() : EtiquetaEnvio
+}
+class NotaFiscalBrasil
+class SalesInvoice
+class VatInvoice
+class PixBrasil
+class CartaoEua
+class Sepa
+class CorreiosBrasil
+class Usps
+class DeutschePost
+DocumentoFiscal <|.. NotaFiscalBrasil
+DocumentoFiscal <|.. SalesInvoice
+DocumentoFiscal <|.. VatInvoice
+Pagamento <|.. PixBrasil
+Pagamento <|.. CartaoEua
+Pagamento <|.. Sepa
+EtiquetaEnvio <|.. CorreiosBrasil
+EtiquetaEnvio <|.. Usps
+EtiquetaEnvio <|.. DeutschePost
+class FabricaBrasil
+class FabricaEua
+class FabricaAlemanha
+FabricaCheckout <|.. FabricaBrasil
+FabricaCheckout <|.. FabricaEua
+FabricaCheckout <|.. FabricaAlemanha
+FabricaBrasil ..> NotaFiscalBrasil : cria
+FabricaBrasil ..> PixBrasil : cria
+FabricaBrasil ..> CorreiosBrasil : cria
+FabricaEua ..> SalesInvoice : cria
+FabricaEua ..> CartaoEua : cria
+FabricaEua ..> Usps : cria
+FabricaAlemanha ..> VatInvoice : cria
+FabricaAlemanha ..> Sepa : cria
+FabricaAlemanha ..> DeutschePost : cria
+class Checkout
+class SeletorFabrica
+Checkout ..> FabricaCheckout
+SeletorFabrica ..> FabricaCheckout
+@enduml

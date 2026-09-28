@@ -1,0 +1,36 @@
+@startuml
+abstract class Apolice {
+ -numero : String
+ -segurado : String
+ -dataEmissao : LocalDate
+ +calcularPremio() : double
+ +validarCobertura() : void
+ +listarDocumentos() : List<String>
+ +gerarResumo() : String
+}
+class ApoliceAuto
+class ApoliceResidencial
+class ApoliceVida
+class ApoliceViagem
+Apolice <|-- ApoliceAuto
+Apolice <|-- ApoliceResidencial
+Apolice <|-- ApoliceVida
+Apolice <|-- ApoliceViagem
+abstract class CriadorApolice {
+ #{abstract} criarApolice(dados) : Apolice
+ +{final} processarContratacao(dados) : Apolice
+}
+class CriadorAuto
+class CriadorResidencial
+class CriadorVida
+class CriadorViagem
+CriadorApolice <|-- CriadorAuto
+CriadorApolice <|-- CriadorResidencial
+CriadorApolice <|-- CriadorVida
+CriadorApolice <|-- CriadorViagem
+CriadorApolice ..> Apolice : factory method cria
+class SeletorCriador
+class Main <<cliente>>
+Main ..> SeletorCriador
+SeletorCriador ..> CriadorApolice
+@enduml
